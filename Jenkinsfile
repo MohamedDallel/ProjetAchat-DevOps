@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout GIT') {
             steps {
                 echo 'Pulling...'
-                git branch: 'master',
+                git branch: 'BranchAziz',
                 url :'https://github.com/MohamedDallel/ProjetAchat-DevOps'
             }
         }
