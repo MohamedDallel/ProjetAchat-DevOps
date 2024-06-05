@@ -14,6 +14,11 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+        stage('Mockito Tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
