@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools  {
+        maven 'M2_HOME'
+    }
     environment {
         DOCKER_IMAGE_TAG = "achat:1.0.0"
         DOCKER_REGISTRY_URL = "https://hub.docker.com/"
@@ -9,6 +12,21 @@ pipeline {
           stage('Maven Clean & Compile') {
             steps {
                 sh 'mvn clean install'
+            }
+        }
+
+         stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    // Exécuter mvn sonar:sonar
+                              sh "mvn clean package sonar:sonar"
+
+                }
+            }
+        }
+         stage('Upload to Nexus') {
+            steps {
+               sh 'mvn deploy'
             }
         }
         stage('Build Docker Image') {
@@ -39,30 +57,6 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    // Exécuter mvn sonar:sonar
-                              sh "mvn clean package sonar:sonar"
-
-                }
-            }
-        }
-         stage('Upload to Nexus') {
-            steps {
-                script {
-                    nexusArtifactUploader artifacts: [[artifactId: 'achat',
-                                                      file: 'target/achat-1.0.jar',
-                                                      type: 'jar']],
-                                          nexusVersion:'nexus3',
-                                          credentialsId: 'Nexus-Token',
-                                          groupId: 'pom.tn.esprit.rh',
-                                          nexusUrl: '192.168.2.109:8081',
-                                          protocol: 'http',
-                                          repository: 'maven-central-repository',
-                                          version: 'pom.1.0'
-                }
-            }
-        }
+      
     }
 }
