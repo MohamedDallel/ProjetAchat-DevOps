@@ -10,7 +10,6 @@ pipeline {
         }
           stage('Maven Clean & Compile') {
             steps {
-                // Add your build steps here, e.g., Maven, Gradle, etc.
                 sh 'mvn clean install'
             }
         }
