@@ -35,7 +35,7 @@ pipeline {
                                           groupId: 'pom.tn.esprit.rh',
                                           nexusUrl: '192.168.2.109:8081',
                                           protocol: 'http',
-                                          repository: 'maven-central-repository',
+                                          repository: 'maven-releases',
                                           version: 'pom.1.0'
                 }
             }
