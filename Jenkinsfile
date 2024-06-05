@@ -6,7 +6,7 @@ pipeline {
         DOCKER_REGISTRY_CREDENTIALS = "docker-token"
     }
     stages {
-          stage('Maven Clean & Compile') {
+        stage('Maven Clean & Compile') {
             steps {
                 sh 'mvn clean install'
             }
@@ -18,7 +18,7 @@ pipeline {
                 }
             }
         }
-         stage('Deploy Services') {
+        stage('Deploy Services') {
             steps {
                 script {
                     sh 'docker compose up -d'
@@ -41,26 +41,28 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-            
-                    sh "mvn clean package sonar:sonar"
-
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "mvn clean package sonar:sonar"
+                    }
                 }
             }
         }
-         stage('Upload to Nexus') {
+        stage('Upload to Nexus') {
             steps {
                 script {
-                    nexusArtifactUploader artifacts: [[artifactId: 'achat',
-                                        file: 'target/stock-1.0.0.jar',
-                                          type: 'jar']],
-                                          nexusVersion:'nexus3',
-                                          credentialsId: 'Nexus-Token',
-                                          groupId: 'pom.tn.esprit.rh',
-                                          nexusUrl: '192.168.2.109:8081',
-                                          protocol: 'http',
-                                          repository: 'maven-central-repository',
-                                          version: 'pom.1.0'
+                    nexusArtifactUploader(
+                        artifacts: [[artifactId: 'achat',
+                                     file: 'target/stock-1.0.0.jar',
+                                     type: 'jar']],
+                        nexusVersion:'nexus3',
+                        credentialsId: 'Nexus-Token',
+                        groupId: 'pom.tn.esprit.rh',
+                        nexusUrl: 'http://192.168.2.109:8081',
+                        protocol: 'http',
+                        repository: 'maven-central-repository',
+                        version: 'pom.1.0'
+                    )
                 }
             }
         }
