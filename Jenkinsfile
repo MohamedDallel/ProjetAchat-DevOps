@@ -1,10 +1,5 @@
 pipeline {
     agent any
-    environment {
-        DOCKER_IMAGE_TAG = "achat:1.0.0"
-        DOCKER_REGISTRY_URL = "https://hub.docker.com/"
-        DOCKER_REGISTRY_CREDENTIALS = "docker-token"
-    }
     stages {
           stage('Maven Clean & Compile') {
             steps {
@@ -50,11 +45,9 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                script {
-                    docker.withRegistry(DOCKER_REGISTRY_URL, DOCKER_REGISTRY_CREDENTIALS) {
-                        docker.image(DOCKER_IMAGE_TAG).push()
-                    }
-                }
+                    sh 'docker login -u mohamedazizdallel -p Dalaz501099*** '
+                    sh 'docker tag achatimage:v${BUILD_NUMBER} mohamedazizdallel/achatimage:achatimage'
+                    sh 'docker push mohamedazizdallel/achatimage:achatimage'
             }
         }
                  stage('Deploy Services') {
