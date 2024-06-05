@@ -26,26 +26,15 @@ pipeline {
         }
         stage('Upload to Nexus') {
             steps {
-                script {
-                    nexusArtifactUploader artifacts: [[artifactId: 'achat',
-                                                      file: 'target/achat-1.0.jar',
-                                                      type: 'jar']],
-                                          nexusVersion:'nexus3',
-                                          credentialsId: 'Nexus-Token',
-                                          groupId: 'pom.tn.esprit.rh',
-                                          nexusUrl: '192.168.2.109:8081',
-                                          protocol: 'http',
-                                          repository: 'maven-releases',
-                                          version: 'pom.1.0'
-                }
+                sh 'mvn deploy'
             }
         }
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build DOCKER_IMAGE_TAG
-                }
-              //  sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
+              //  script {
+              //      docker.build DOCKER_IMAGE_TAG
+              //  }
+                sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
 
