@@ -42,10 +42,10 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-               // script {
-                 //   docker.build DOCKER_IMAGE_TAG
-              //  }
-                sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
+                script {
+                    docker.build DOCKER_IMAGE_TAG
+                }
+              //  sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
 
