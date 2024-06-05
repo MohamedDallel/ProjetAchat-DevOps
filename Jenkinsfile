@@ -47,19 +47,20 @@ pipeline {
                 }
             }
         }
-         stage('Deploy Services') {
-            steps {
-                script {
-                    sh 'docker compose up -d'
-                }
-            }
-        }
+
         stage('Push Docker Image') {
             steps {
                 script {
                     docker.withRegistry(DOCKER_REGISTRY_URL, DOCKER_REGISTRY_CREDENTIALS) {
                         docker.image(DOCKER_IMAGE_TAG).push()
                     }
+                }
+            }
+        }
+                 stage('Deploy Services') {
+            steps {
+                script {
+                    sh 'docker compose up -d'
                 }
             }
         }
