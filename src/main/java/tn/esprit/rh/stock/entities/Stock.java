@@ -36,5 +36,9 @@ public class Stock implements Serializable {
 		this.qte = qte;
 		this.qteMin = qteMin;
 	}
+    public Stock createMockStock() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createMockStock'");
+    }
 
 }
