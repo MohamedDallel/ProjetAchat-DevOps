@@ -26,7 +26,6 @@ services:
     container_name: achat-mysql1
     restart: always
     environment:
-     - MYSQL_ROOT_PASSWORD=
      - MYSQL_ALLOW_EMPTY_PASSWORD= yes
      - MYSQL_DATABASE= achatdb
     ports:
