@@ -10,26 +10,15 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+        stage('SonarQube Analysis') {
+            steps {
+                sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
                    docker.build("karymgharby/achat:1.0")
-                }
-            }
-        }
-        stage('Deploy Services') {
-            steps {
-                script {
-                    sh 'docker-compose up -d'
-                }
-            }
-        }
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry(DOCKER_REGISTRY_URL, DOCKER_REGISTRY_CREDENTIALS) {
-                        docker.image(DOCKER_IMAGE_TAG).push()
-                    }
                 }
             }
         }
@@ -65,6 +54,23 @@ pipeline {
                 }
             }
         }
+        stage('Deploy Services') {
+            steps {
+                script {
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry(DOCKER_REGISTRY_URL, DOCKER_REGISTRY_CREDENTIALS) {
+                        docker.image(DOCKER_IMAGE_TAG).push()
+                    }
+                }
+            }
+        }
+
     }
 
 }
