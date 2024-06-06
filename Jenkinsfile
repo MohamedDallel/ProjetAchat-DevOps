@@ -1,7 +1,6 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE_TAG = "achat:1.0.jar"
         DOCKER_REGISTRY_URL = "https://hub.docker.com/"
         DOCKER_REGISTRY_CREDENTIALS = "docker-token"
     }
@@ -14,7 +13,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                   sh "docker build ${DOCKER_IMAGE_TAG}"
+                   sh "docker build -f dockerfile"
                 }
             }
         }
