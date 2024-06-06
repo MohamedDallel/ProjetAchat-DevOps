@@ -13,7 +13,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                   sh "docker build -f dockerfile"
+                   docker.build("karymgharby/achat:1.0")
                 }
             }
         }
