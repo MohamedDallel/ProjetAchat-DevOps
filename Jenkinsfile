@@ -67,9 +67,10 @@ pipeline {
             }
         }
     }
-    void runbuild(){
+
+}
+void runbuild(){
         def mvnCommand = "clean install"
  
         MVN.run goals: mvnCommand, pom: 'pom.xml', buildInfo: BUILD_INFO
-    }
 }
