@@ -34,7 +34,7 @@ pipeline {
               //  script {
               //      docker.build DOCKER_IMAGE_TAG
               //  }
-                sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
+                sh 'docker build --no-cache -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
 
