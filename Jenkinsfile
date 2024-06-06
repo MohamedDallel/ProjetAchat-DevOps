@@ -23,7 +23,7 @@ pipeline {
                 script {
                     nexusArtifactUploader(
                         artifacts: [[artifactId: 'achat',
-                                     file: 'target/stock-1.0.0.jar',
+                                     file: 'target/achat-1.0.jar',
                                      type: 'jar']],
                         nexusVersion:'nexus3',
                         credentialsId: 'Nexus-Token',
