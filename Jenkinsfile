@@ -11,12 +11,6 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-		  stage('Build Docker Image') {
-            steps {
-
-                sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
-            }
-        }
 		stage('Run Tests') {
             steps {
                 sh 'mvn test'
@@ -33,6 +27,12 @@ pipeline {
 		stage('Upload to Nexus') {
             steps {
                 sh 'mvn deploy'
+            }
+        }
+		stage('Build Docker Image') {
+            steps {
+
+                sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
 		stage('Push Docker Image') {
