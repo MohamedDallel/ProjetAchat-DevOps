@@ -27,15 +27,6 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    withSonarQubeEnv('SonarQube') {
-                        sh "mvn clean package sonar:sonar"
-                    }
-                }
-            }
-        }
         stage('Upload to Nexus') {
             steps {
                 script {
