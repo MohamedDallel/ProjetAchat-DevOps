@@ -19,6 +19,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD=yes
       MYSQL_DATABASE: achat
     ports:
       - "3306:3306"
