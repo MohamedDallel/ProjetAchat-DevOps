@@ -13,6 +13,7 @@ pipeline {
         }
 		  stage('Build Docker Image') {
             steps {
+
                 sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
@@ -31,10 +32,9 @@ pipeline {
         }
 		stage('Push Docker Image') {
             steps {
-					sh 'docker login -u ademzikoaziz -p tarajidawla1919'
+                    sh 'docker login -u ademzikoaziz -p tarajidawla1919'
                     sh 'docker tag achatimage:v${BUILD_NUMBER} ademzikoaziz/achatimage:achatimage'
                     sh 'docker push ademzikoaziz/achatimage:achatimage'
-                }
             }
         }
 		 stage('Deploy Services') {
