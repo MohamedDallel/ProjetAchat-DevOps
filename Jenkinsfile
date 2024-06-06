@@ -30,6 +30,11 @@ pipeline {
                 }
             }
         }
+		stage('Upload to Nexus') {
+            steps {
+                sh 'mvn deploy'
+            }
+        }
 		stage('Push Docker Image') {
             steps {
                     sh 'docker login -u ademzikoaziz -p tarajidawla1919'
@@ -41,22 +46,6 @@ pipeline {
             steps {
                 script {
                     sh 'docker compose up -d'
-                }
-            }
-        }
-		stage('Upload to Nexus') {
-            steps {
-                script {
-                    nexusArtifactUploader artifacts: [[artifactId: 'achat',
-                                                      file: 'target/achat-1.0.jar',
-                                                      type: 'jar']],
-                                          nexusVersion:'nexus3',
-                                          credentialsId: 'nexus-token',
-                                          groupId: 'pom.tn.esprit.rh',
-                                          nexusUrl: '192.168.2.53:8081',
-                                          protocol: 'http',
-                                          repository: 'maven-repository',
-                                          version: 'pom.1.0'
                 }
             }
         }
