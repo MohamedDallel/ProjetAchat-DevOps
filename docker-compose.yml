@@ -27,7 +27,7 @@ services:
     restart: always
     environment:
      - MYSQL_ALLOW_EMPTY_PASSWORD= yes
-     - MYSQL_DATABASE= achatdb
+     - MYSQL_DATABASE= achat
     ports:
       - "3306:3306"
     volumes:
