@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Maven Clean & Compile') {
             steps {
-                runbuild()
+                sh 'mvn clean install'
             }
         }
         stage('Build Docker Image') {
@@ -68,9 +68,4 @@ pipeline {
         }
     }
 
-}
-void runbuild(){
-        def mvnCommand = "clean install"
- 
-        MVN.run goals: mvnCommand, pom: 'pom.xml', buildInfo: BUILD_INFO
 }
