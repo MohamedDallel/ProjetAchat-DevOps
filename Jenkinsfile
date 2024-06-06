@@ -2,7 +2,7 @@ pipeline {
     agent any
 	environment {
         DOCKER_IMAGE_TAG = "achat:1.0.0"
-        DOCKER_REGISTRY_URL = "https://hub.docker.com/"
+        DOCKER_REGISTRY_URL = "https://index.docker.io/v1/"
         DOCKER_REGISTRY_CREDENTIALS = "docker-token"
     }
     stages {
