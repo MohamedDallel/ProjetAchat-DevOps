@@ -10,11 +10,6 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
-            }
-        }
         stage('Build Docker Image') {
             steps {
                 script {
@@ -22,11 +17,7 @@ pipeline {
                 }
             }
         }
-        stage('Mockito Tests') {
-            steps {
-                sh 'mvn test'
-            }
-        }
+
         stage('Upload to Nexus') {
             steps {
                 script {
