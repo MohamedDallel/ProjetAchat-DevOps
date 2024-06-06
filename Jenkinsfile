@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Maven Clean & Compile') {
             steps {
-                sh 'mvn clean install'
+                runbuild()
             }
         }
         stage('Build Docker Image') {
@@ -58,7 +58,7 @@ pipeline {
                         nexusVersion:'nexus3',
                         credentialsId: 'Nexus-Token',
                         groupId: 'pom.tn.esprit.rh',
-                        nexusUrl: 'http://192.168.2.109:8081',
+                        nexusUrl: 'http://192.168.133.136:8081',
                         protocol: 'http',
                         repository: 'maven-central-repository',
                         version: 'pom.1.0'
@@ -66,5 +66,10 @@ pipeline {
                 }
             }
         }
+    }
+    void runbuild(){
+        def mvnCommand = "clean install"
+ 
+        MVN.run goals: mvnCommand, pom: 'pom.xml', buildInfo: BUILD_INFO
     }
 }
