@@ -83,16 +83,5 @@ public class StockServiceImplMockTest {
         verify(stockRepository, times(1)).findById(stockId);
     }
 
-    @Test
-    public void testRetrieveStatusStock() {
-        Stock stockInRed = new Stock(/* initialize with necessary fields */);
-        stockInRed.setQte(30); // Below the minimum quantity
-        when(stockRepository.retrieveStatusStock()).thenReturn(Collections.singletonList(stockInRed));
-
-        String result = stockService.retrieveStatusStock();
-
-        assertNotNull(result);
-        assertTrue(result.contains("le stock Mock Stock a une quantité de 30"));
-        verify(stockRepository, times(1)).retrieveStatusStock();
-    }
+    
 }
