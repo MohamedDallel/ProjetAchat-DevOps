@@ -40,7 +40,7 @@ pipeline {
 		 stage('Deploy Services') {
             steps {
                 script {
-                    sh 'docker compose up'
+                    sh 'docker compose up -d'
                 }
             }
         }
