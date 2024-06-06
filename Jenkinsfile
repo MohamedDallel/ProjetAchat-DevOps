@@ -13,9 +13,7 @@ pipeline {
         }
 		  stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build DOCKER_IMAGE_TAG
-                }
+                sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
 		stage('Run Tests') {
@@ -33,10 +31,9 @@ pipeline {
         }
 		stage('Push Docker Image') {
             steps {
-                script {
-                    docker.withRegistry(DOCKER_REGISTRY_URL, DOCKER_REGISTRY_CREDENTIALS) {
-                        docker.image(DOCKER_IMAGE_TAG).push()
-                    }
+					sh 'docker login -u ademzikoaziz -p tarajidawla1919'
+                    sh 'docker tag achatimage:v${BUILD_NUMBER} ademzikoaziz/achatimage:achatimage'
+                    sh 'docker push ademzikoaziz/achatimage:achatimage'
                 }
             }
         }
