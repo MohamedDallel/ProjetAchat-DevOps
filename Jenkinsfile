@@ -21,17 +21,7 @@ pipeline {
         stage('Upload to Nexus') {
             steps {
                 script {
-                    nexusArtifactUploader(
-                        artifacts: [[artifactId: 'achat',
-                                     file: 'target/achat-1.0.jar',
-                                     type: 'jar']],
-                        nexusVersion:'nexus3',
-                        credentialsId: 'Nexus-Token',
-                        groupId: 'pom.tn.esprit.rh',
-                        nexusUrl: '192.168.133.136:8081',
-                        protocol: 'http',
-                        repository: 'maven-central',
-                        version: 'pom.1.0'
+                    sh 'mvn deploy'
                     )
                 }
             }
