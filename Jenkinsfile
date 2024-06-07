@@ -6,30 +6,30 @@ pipeline {
         DOCKER_REGISTRY_CREDENTIALS = "docker-token"
     }
     stages {
-          stage('Maven Clean & Compile') {
+          stage('MAVEN BUILD') {
             steps {
                 sh 'mvn clean install'
             }
         }
 
-         stage('SonarQube Analysis') {
+         stage('SONARQUBE') {
             steps {
                 withSonarQubeEnv('SonarQube') {
                               sh "mvn clean package sonar:sonar"
                 }
             }
         }
-         stage('Mockito Tests') {
+         stage('MOCKITO') {
             steps {
                 sh 'mvn test'
             }
         }
-        stage('Upload to Nexus') {
+        stage('NEXUS') {
             steps {
                 sh 'mvn deploy'
             }
         }
-        stage('Build Docker Image') {
+        stage('DOCKER IMAGE') {
             steps {
               //  script {
               //      docker.build DOCKER_IMAGE_TAG
@@ -38,21 +38,21 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
+        stage('DOCKER HUB') {
             steps {
                     sh 'docker login -u mohamedazizdallel -p Dalaz501099***'
                     sh 'docker tag achatimage:v${BUILD_NUMBER} mohamedazizdallel/achatimage:achatimage'
                     sh 'docker push mohamedazizdallel/achatimage:achatimage'
             }
         }
-                 stage('Deploy Services') {
+                 stage('DOCKER-COMPOSE') {
             steps {
                 script {
                     sh 'docker compose up -d'
                 }
             }
         }
-         stage('Deploy Grafana and Prometheus') {
+         stage('GRAGANA') {
             steps {
                 script {
                     // Restart existing Grafana and Prometheus containers
