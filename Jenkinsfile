@@ -13,7 +13,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                   docker.build("karymgharby/achat:v${BUILD_NUMBER}")
+                   sh 'docker build --no-cache -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
                 }
             }
         }
