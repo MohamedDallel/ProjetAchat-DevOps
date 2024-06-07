@@ -11,9 +11,10 @@ services:
     volumes:
       - db:/var/lib/mysql
   app-achat:
+#    chkoun bech yetlanca loul
     depends_on:
       - mysqldb
-    image: khazriyosri/achat-devops:1.0.0
+    image: anassamiri99/achat-devops:1.0.0
     restart: on-failure
     ports:
       - 8082:8082
