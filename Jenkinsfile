@@ -1,10 +1,5 @@
 pipeline {
     agent any
-     environment {
-        DOCKER_IMAGE_TAG = "achat:1.0.0"
-        DOCKER_REGISTRY_URL = "https://hub.docker.com/"
-        DOCKER_REGISTRY_CREDENTIALS = "docker-token"
-    }
     stages {
           stage('MAVEN BUILD') {
             steps {
@@ -31,9 +26,6 @@ pipeline {
         }
         stage('DOCKER IMAGE') {
             steps {
-              //  script {
-              //      docker.build DOCKER_IMAGE_TAG
-              //  }
                 sh 'docker build --no-cache -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
