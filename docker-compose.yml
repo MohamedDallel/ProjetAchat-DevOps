@@ -4,7 +4,7 @@ services:
   backend:
     depends_on:
       - mysql-db
-    image: achat:1.0.0
+    image: mohamedazizdallel/achatimage:achatimage
     restart: on-failure
     ports:
       - "8089:8089"
