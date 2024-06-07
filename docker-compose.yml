@@ -9,14 +9,7 @@ services:
     ports:
       - "8089:8089"
     environment:
-     # SPRING_APPLICATION_JSON: '{"spring.datasource.url": "jdbc:mysql://mysql-db:3306/achatdb?createDatabaseIfNotExist=true","spring.datasource.username": "root","spring.datasource.password": null,"spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5InnoDBDialect","spring.jpa.hibernate.ddl-auto": "update"}'
-      SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url" : "jdbc:mysql://mysql-db:3306/achatdb?createDatabaseIfNotExist=true",
-        "spring.datasource.username" : "root",
-        "spring.datasource.password" : null,
-        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-        "spring.jpa.hibernate.ddl-auto" : "update"
-       }'
+      SPRING_APPLICATION_JSON: '{"spring.datasource.url": "jdbc:mysql://mysql-db:3306/achatdb?createDatabaseIfNotExist=true","spring.datasource.username": "root","spring.datasource.password": null,"spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5InnoDBDialect","spring.jpa.hibernate.ddl-auto": "update"}'
     stdin_open: true
     tty: true
 
@@ -25,8 +18,8 @@ services:
     container_name: achat-mysql
     restart: always
     environment:
-    - MYSQL_ROOT_PASSWORD=
-    - MYSQL_DATABASE= achatdb
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: achatdb
     ports:
       - "3306:3306"
     volumes:
