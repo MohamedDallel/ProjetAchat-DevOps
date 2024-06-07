@@ -36,7 +36,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                    sh 'docker login -u karymgharby -p Kouki11630599*'
+                    sh 'echo Kouki11630599* | docker login --username karymgharby --password-stdin'
                     sh 'docker tag achatimage:v${BUILD_NUMBER} karymgharby/achatimage:achatimage'
                     sh 'docker push karymgharby/achatimage:achatimage'
             }
