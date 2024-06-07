@@ -13,7 +13,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                   docker.build("karymgharby/achat:1.0")
+                   docker.build("karymgharby/achat:v${BUILD_NUMBER}")
                 }
             }
         }
@@ -26,6 +26,7 @@ pipeline {
                 }
             }
         }
+
         stage('Deploy Services') {
             steps {
                 script {
@@ -35,11 +36,9 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                script {
-                    docker.withRegistry(DOCKER_REGISTRY_URL, DOCKER_REGISTRY_CREDENTIALS) {
-                        docker.image(DOCKER_IMAGE_TAG).push()
-                    }
-                }
+                    sh 'docker login -u karymgharby -p Kouki11630599*'
+                    sh 'docker tag achatimage:v${BUILD_NUMBER} karymgharby/achatimage:achatimage'
+                    sh 'docker push karymgharby/achatimage:achatimage'
             }
         }
         stage('Deploy Grafana and Prometheus') {
