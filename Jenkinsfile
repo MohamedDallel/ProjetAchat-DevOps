@@ -1,11 +1,6 @@
 pipeline {
     agent any
     stages {
-         stage('GIT') {
-            steps {
-               checkout scmGit(branches: [[name: '*/BranchAziz']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/MohamedDallel/ProjetAchat-DevOps.git']])
-            }
-        }
           stage('MAVEN BUILD') {
             steps {
                 sh 'mvn clean install'
