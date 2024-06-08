@@ -18,7 +18,6 @@ services:
     container_name: stock-mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD:
       MYSQL_DATABASE: achat
       MYSQL_ALLOW_EMPTY_PASSWORD: Yes
     ports:
