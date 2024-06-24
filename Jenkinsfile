@@ -13,7 +13,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                   sh 'docker build --no-cache -t achat:1.0 -f Dockerfile ./'
+                   sh 'docker build --no-cache -t achat:1.0 -f Dockerfile .'
                 }
             }
         }
