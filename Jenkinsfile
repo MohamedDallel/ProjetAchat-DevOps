@@ -26,14 +26,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy Services') {
-            steps {
-                script {
-                    sh 'docker-compose up -d'
-                }
-            }
-        }
         stage('Push Docker Image') {
             steps {
                     sh 'echo Kouki11630599* | docker login --username karymgharby --password-stdin'
@@ -41,6 +33,14 @@ pipeline {
                     sh 'docker push karymgharby/achat:1.0'
             }
         }
+        stage('Deploy Services') {
+            steps {
+                script {
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
+
         stage('Deploy Grafana and Prometheus') {
             steps {
                 script {
