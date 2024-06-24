@@ -28,9 +28,9 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                    sh 'echo Kouki11630599* | docker login --username karymgharby --password-stdin'
-                    sh 'docker tag achat:1.0 karymgharby/achat:1.0'
-                    sh 'docker push karymgharby/achatimage'
+                    sh 'echo Aslema@123* | docker login --username yassinebenr --password-stdin'
+                    sh 'docker tag achat:1.0 yassinebenr/achat:1.0'
+                    sh 'docker push yassinebenr/achatimage'
             }
         }
         stage('Deploy Services') {
