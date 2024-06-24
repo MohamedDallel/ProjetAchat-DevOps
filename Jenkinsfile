@@ -13,7 +13,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                   sh 'docker build --no-cache -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
+                   sh 'docker build --no-cache -t achat:1.0 -f Dockerfile ./'
                 }
             }
         }
@@ -37,8 +37,8 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                     sh 'echo Kouki11630599* | docker login --username karymgharby --password-stdin'
-                    sh 'docker tag achatimage:v${BUILD_NUMBER} karymgharby/achatimage:achatimage'
-                    sh 'docker push karymgharby/achatimage:achatimage'
+                    sh 'docker tag achat:1.0 karymgharby/achat1:0'
+                    sh 'docker push karymgharby/achat:1.0'
             }
         }
         stage('Deploy Grafana and Prometheus') {
